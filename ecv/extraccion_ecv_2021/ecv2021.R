@@ -4,8 +4,8 @@ library(tidyr)
 library(writexl)
 
 # ── Rutas ─────────────────────────────────────────────────────────────────────
-ruta_xlsx <- "C:/Users/jimen/Documents/encuesta-calidad-vida-2021_2026-06-04/encuesta-calidad-vida-2021/Indicadores ECV_2021.xlsm"
-ruta_out  <- "C:/Users/jimen/Documents/extraccion_ecv_2021/ecv_2021_wide.xlsx"
+ruta_xlsx <- "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/encuesta-calidad-vida-2021_2026-06-04/encuesta-calidad-vida-2021/Indicadores ECV_2021.xlsm"
+ruta_out  <- "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/extraccion_ecv_2021/ecv_2021_wide.xlsx"
 
 # ── Municipios ────────────────────────────────────────────────────────────────
 municipios_uraba <- c(
@@ -21,8 +21,14 @@ indicadores_map <- c(
   "D1_V2: Materiales inadecuados"                    = "calidad_vivienda",
   "D2_V1: Número de servicios públicos instalados"   = "num_servicios_pub",
   "D2_V2: Número de servicios públicos suspendidos"  = "num_servicios_suspendidos",
-  "Tasa de desempleo"                                = "tasa_desempleo"
+  "Tasa de desempleo"                                = "tasa_desempleo",
+  "Indice de dependencia economica"                  = "dep_economica"
 )
+
+# dep_economica: índice de dependencia económica. Mide la proporción de personas
+# dependientes por cada 100 personas en el hogar. A mayor valor, mayor carga
+# económica sobre los ocupados. Se aplica filtro de CV <= 15% para la
+# desagregación urbano/rural. No es una excepción al filtro estándar.
 
 nombres_originales     <- names(indicadores_map)
 nombres_estandarizados <- unname(indicadores_map)
@@ -62,7 +68,7 @@ df <- raw |>
   mutate(dane_code = as.character(Codigo)) |>                                 # 10
   select(Territorio, dane_code, `Nombre del Indicador`, Zona, Valor)
 
-cat("\n--- Filas después del filtro (esperado: 11×6×3 = 198):", nrow(df), "---\n")
+cat("\n--- Filas después del filtro (esperado: 11×7×3 = 231):", nrow(df), "---\n")
 
 # ── 8. Primer pivot: Zona → columnas Total / Urbano / Rural ──────────────────
 df_zona <- df |>

@@ -14,13 +14,13 @@ library(writexl)
 
 # ── Rutas ─────────────────────────────────────────────────────────────────────
 archivos <- c(
-  "C:/Users/jimen/Documents/extraccion_ecv_2017/ecv_2017_wide.xlsx",
-  "C:/Users/jimen/Documents/extraccion_ecv_2019/ecv_2019_wide.xlsx",
-  "C:/Users/jimen/Documents/extraccion_ecv_2021/ecv_2021_wide.xlsx",
-  "C:/Users/jimen/Documents/extraccion_ecv_2023/ecv_2023_wide.xlsx"
+  "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/extraccion_ecv_2017/ecv_2017_wide.xlsx",
+  "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/extraccion_ecv_2019/ecv_2019_wide.xlsx",
+  "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/extraccion_ecv_2021/ecv_2021_wide.xlsx",
+  "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/extraccion_ecv_2023/ecv_2023_wide.xlsx"
 )
 
-ruta_out <- "C:/Users/jimen/Documents/ecv_unificada/panel_ecv_uraba.xlsx"
+ruta_out <- "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/ecv_unificada/panel_ecv_uraba.xlsx"
 
 # ── 2-3. Leer y unir ──────────────────────────────────────────────────────────
 panel <- lapply(archivos, read_excel) |>
@@ -40,7 +40,7 @@ message("Archivo exportado: ", ruta_out)
 
 # ── Verificación ──────────────────────────────────────────────────────────────
 cat("\ndim(panel):\n")
-print(dim(panel))
+print(dim(panel))    # debe ser 44 24
 
 cat("\npanel |> count(anio):\n")
 print(dplyr::count(panel, anio))

@@ -4,8 +4,8 @@ library(tidyr)
 library(writexl)
 
 # ── Rutas ────────────────────────────────────────────────────────────────────
-ruta_xlsx <- "C:/Users/jimen/Documents/encuesta-calidad-vida-2017_2026-06-04/encuesta-calidad-vida-2017/ConsolidadoECV2017.xlsx"
-ruta_out  <- "C:/Users/jimen/Documents/extraccion_ecv_2017/ecv_2017_wide.xlsx"
+ruta_xlsx <- "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/encuesta-calidad-vida-2017_2026-06-04/encuesta-calidad-vida-2017/ConsolidadoECV2017.xlsx"
+ruta_out  <- "C:/Users/jimen/Documents/encuesta_calidad_vida_antioquia/extraccion_ecv_2017/ecv_2017_wide.xlsx"
 
 # ── Municipios ────────────────────────────────────────────────────────────────
 municipios_uraba <- c(
@@ -37,8 +37,14 @@ indicadores_map <- c(
   "Componentes - Índice Multidimensional de Condiciones de Vida (IMCV) - D1_V2 Calidad de la vivienda"               = "calidad_vivienda",
   "Componentes - Índice Multidimensional de Condiciones de Vida (IMCV) - D2_V3 N° de servicios públicos"             = "num_servicios_pub",
   "Componentes - Índice Multidimensional de Condiciones de Vida (IMCV) - D2_V4 N° de servicios públicos suspendidos" = "num_servicios_suspendidos",
-  "Tasa de desempleo  (%)"                                                                                            = "tasa_desempleo"
+  "Tasa de desempleo  (%)"                                                                                            = "tasa_desempleo",
+  "Índice de dependencia económica (%)"                                                                               = "dep_economica"
 )
+
+# dep_economica: índice de dependencia económica. Mide la proporción de personas
+# dependientes por cada 100 personas en el hogar. A mayor valor, mayor carga
+# económica sobre los ocupados. Se aplica filtro de CV <= 15% para la
+# desagregación urbano/rural. No es una excepción al filtro estándar.
 
 nombres_originales     <- names(indicadores_map)
 nombres_estandarizados <- unname(indicadores_map)
@@ -90,6 +96,6 @@ write_xlsx(df_wide, ruta_out)
 message("Archivo exportado: ", ruta_out)
 
 # ── Verificación ──────────────────────────────────────────────────────────────
-cat("\ndim(df_wide):\n");    print(dim(df_wide))
+cat("\ndim(df_wide):\n");    print(dim(df_wide))    # debe ser 11 24
 cat("\nnames(df_wide):\n");  print(names(df_wide))
 cat("\ndf_wide[, 1:5]:\n");  print(df_wide[, 1:5])
